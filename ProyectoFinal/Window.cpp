@@ -21,10 +21,10 @@ Window::Window(GLint windowWidth, GLint windowHeight)
 }
 int Window::Initialise()
 {
-	//Inicialización de GLFW
+	//InicializaciÃ³n de GLFW
 	if (!glfwInit())
 	{
-		printf("Falló inicializar GLFW");
+		printf("FallÃ³ inicializar GLFW");
 		glfwTerminate();
 		return 1;
 	}
@@ -36,7 +36,7 @@ int Window::Initialise()
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
 	//CREAR VENTANA
-	mainWindow = glfwCreateWindow(width, height, "PracticaXX:Nombre de la practica", NULL, NULL);
+	mainWindow = glfwCreateWindow(width, height, "Proyecto Final", NULL, NULL);
 
 	if (!mainWindow)
 	{
@@ -44,7 +44,7 @@ int Window::Initialise()
 		glfwTerminate();
 		return 1;
 	}
-	//Obtener tamaño de Buffer
+	//Obtener tamaÃ±o de Buffer
 	glfwGetFramebufferSize(mainWindow, &bufferWidth, &bufferHeight);
 
 	//asignar el contexto
@@ -59,7 +59,7 @@ int Window::Initialise()
 
 	if (glewInit() != GLEW_OK)
 	{
-		printf("Falló inicialización de GLEW");
+		printf("FallÃ³ inicializaciÃ³n de GLEW");
 		glfwDestroyWindow(mainWindow);
 		glfwTerminate();
 		return 1;
@@ -70,7 +70,7 @@ int Window::Initialise()
 							 
 							 //Asignar Viewport
 	glViewport(0, 0, bufferWidth, bufferHeight);
-	//Callback para detectar que se está usando la ventana
+	//Callback para detectar que se estÃ¡ usando la ventana
 	glfwSetWindowUserPointer(mainWindow, this);
 }
 
@@ -128,7 +128,30 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 			//printf("se solto la tecla %d'\n", key);
 		}
 	}
+
+	///////////
+	if (key >= 0 && key < 1024) {
+		if (action == GLFW_PRESS) {
+			theWindow->keys[key] = true;
+
+		}
+		else if (action == GLFW_RELEASE) {
+
+			theWindow->keys[key] = false;
+			if (key == GLFW_KEY_B)
+				theWindow->gemGG = true;
+
+			if (key == GLFW_KEY_V)
+				theWindow->nave = true;
+
+			if (key == GLFW_KEY_C)
+				theWindow->van = true;
+		}
+	}
+	///////
+
 }
+
 
 void Window::ManejaMouse(GLFWwindow* window, double xPos, double yPos)
 {
