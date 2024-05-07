@@ -14,8 +14,16 @@ public:
 	GLfloat getXChange();
 	GLfloat getYChange();
 	GLfloat getmuevex() { return muevex; }
+	GLfloat getmuevexH() { return muevexH; }	
+	bool getplantLight() { return plantLight; }
 	bool getShouldClose() {
 		return  glfwWindowShouldClose(mainWindow);}
+	bool PIniciarNave() { return nave; };				//
+	void IniciaNave() { nave = false; }					//
+	bool PIniciaVan() { return van; }
+	void IniciaVan() { van = true; }
+	bool PIniciargemGG() { return gemGG; };				//
+	void IniciagemGG() { gemGG = false; }					///
 	bool* getsKeys() { return keys; }
 	void swapBuffers() { return glfwSwapBuffers(mainWindow); }
 	
@@ -31,7 +39,12 @@ private:
 	GLfloat xChange;
 	GLfloat yChange;
 	GLfloat muevex;
+	GLfloat muevexH;		
 	bool mouseFirstMoved;
+	bool plantLight = false;
+	bool van = false;
+	bool nave = false;
+	bool gemGG = false;
 	static void ManejaTeclado(GLFWwindow* window, int key, int code, int action, int mode);
 	static void ManejaMouse(GLFWwindow* window, double xPos, double yPos);
 
