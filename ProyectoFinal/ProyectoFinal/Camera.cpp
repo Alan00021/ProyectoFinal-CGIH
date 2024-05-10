@@ -2,7 +2,8 @@
 
 Camera::Camera() {}
 
-Camera::Camera(glm::vec3 startPosition, glm::vec3 startUp, GLfloat startYaw, GLfloat startPitch, GLfloat startMoveSpeed, GLfloat startTurnSpeed)
+Camera::Camera(glm::vec3 startPosition, glm::vec3 startUp, GLfloat startYaw, GLfloat startPitch, 
+	GLfloat startMoveSpeed, GLfloat startTurnSpeed)
 {
 	position = startPosition;
 	worldUp = startUp;
@@ -16,18 +17,20 @@ Camera::Camera(glm::vec3 startPosition, glm::vec3 startUp, GLfloat startYaw, GLf
 	update();
 }
 
-void Camera::keyControl(bool* keys, GLfloat deltaTime)
+void Camera::keyControl(bool* keys, GLfloat deltaTime, glm::vec3 avatarPosition)
 {
 	GLfloat velocity = moveSpeed * deltaTime;
 
+	glm::vec3 frontNoY = glm::normalize(glm::vec3(front.x, 0.0f, front.z)); // Front sin componente y para movimiento horizontal
+
 	if (keys[GLFW_KEY_W])
 	{
-		position += front * velocity;
+		position += frontNoY * velocity;
 	}
 
 	if (keys[GLFW_KEY_S])
 	{
-		position -= front * velocity;
+		position -= frontNoY * velocity;
 	}
 
 	if (keys[GLFW_KEY_A])
@@ -38,6 +41,32 @@ void Camera::keyControl(bool* keys, GLfloat deltaTime)
 	if (keys[GLFW_KEY_D])
 	{
 		position += right * velocity;
+	}
+
+	if (keys[GLFW_KEY_I])
+	{
+		if (position.x - frontNoY.x * velocity >= -400.0f && position.x - frontNoY.x * velocity <= 400.0f)
+		{
+			position -= frontNoY * velocity;
+		}
+		else
+		{
+			frontNoY *= -1.0f;
+			position += frontNoY * velocity;
+		}
+	}
+
+	if (keys[GLFW_KEY_O])
+	{
+		if (position.z + right.z * velocity >= -250.0f && position.z + right.z * velocity <= 250.0f)
+		{
+			position += right * velocity;
+		}
+		else
+		{
+			right *= -1.0f;
+			position += right * velocity;
+		}
 	}
 }
 

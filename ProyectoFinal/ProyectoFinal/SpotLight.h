@@ -18,7 +18,7 @@ public:
 		GLuint constantLocation, GLuint linearLocation, GLuint exponentLocation,
 		GLuint edgeLocation);
 
-	void SetFlash(glm::vec3 pos, glm::vec3 dir);
+	void SetFlash(glm::vec3 pos, glm::vec3 dir);		//En tiempo de ejecución permiten modificación en la luz
 	void SetPos(glm::vec3 pos);
 	~SpotLight();
 
